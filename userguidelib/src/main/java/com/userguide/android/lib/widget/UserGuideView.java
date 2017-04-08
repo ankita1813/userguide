@@ -19,6 +19,7 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -38,7 +39,7 @@ import com.userguide.android.lib.utils.IAnimationFactory;
  * Created by deepak on 7/4/17.
  */
 
-public class UserGuideView extends FrameLayout implements View.OnClickListener {
+public class UserGuideView extends FrameLayout implements View.OnClickListener, View.OnTouchListener {
 
     private int mOldHeight;
     private int mOldWidth;
@@ -98,6 +99,7 @@ public class UserGuideView extends FrameLayout implements View.OnClickListener {
         getViewTreeObserver().addOnGlobalLayoutListener(mLayoutListener);
         mMaskColour = Color.parseColor("#CC000000");
         setVisibility(INVISIBLE);
+        setOnTouchListener(this);
 
         View contentView = LayoutInflater.from(getContext()).inflate(R.layout.view_user_guide, this, true);
         mContentBox = contentView.findViewById(R.id.user_guide_layout);
@@ -143,6 +145,11 @@ public class UserGuideView extends FrameLayout implements View.OnClickListener {
 
         mShape.draw(mCanvas, mEraser, mXPosition, mYPosition, mShapePadding);
         canvas.drawBitmap(mBitmap, 0, 0, null);
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        return true;
     }
 
     @Override
