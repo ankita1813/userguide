@@ -118,9 +118,14 @@ public class UserGuideView extends FrameLayout implements View.OnClickListener, 
         final int height = getMeasuredHeight();
         if(width <= 0 || height <= 0) return;
 
+        if (mBitmap != null) {
+            mBitmap.recycle();
+            mBitmap = null;
+
+        }
 
         if (mBitmap == null || mCanvas == null || mOldHeight != height || mOldWidth != width) {
-            if (mBitmap != null) mBitmap.recycle();
+           // if (mBitmap != null) mBitmap.recycle();
             mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
             mCanvas = new Canvas(mBitmap);
         }
@@ -309,19 +314,19 @@ public class UserGuideView extends FrameLayout implements View.OnClickListener, 
         private boolean fullWidth = false;
         private int shapeType = CIRCLE_SHAPE;
 
-        final UserGuideView showcaseView;
+        final UserGuideView userGuideView;
 
         private final Activity activity;
 
         public Builder(Activity activity) {
             this.activity = activity;
 
-            showcaseView = new UserGuideView(activity);
+            userGuideView = new UserGuideView(activity);
         }
 
 
         public Builder setTarget(View target) {
-            showcaseView.setTarget(new TargetView(target));
+            userGuideView.setTarget(new TargetView(target));
             return this;
         }
 
@@ -329,42 +334,42 @@ public class UserGuideView extends FrameLayout implements View.OnClickListener, 
 
 
         public Builder setDismissText(CharSequence dismissText) {
-            showcaseView.setDismissText(dismissText);
+            userGuideView.setDismissText(dismissText);
             return this;
         }
 
 
         public Builder setDiscriptionText(CharSequence text) {
-            showcaseView.setContentText(text);
+            userGuideView.setContentText(text);
             return this;
         }
 
         public Builder setTitleText(CharSequence text) {
-            showcaseView.setTitleText(text);
+            userGuideView.setTitleText(text);
             return this;
         }
 
 
         public Builder setTitleTextColor(int textColour) {
-            showcaseView.setTitleTextColor(textColour);
+            userGuideView.setTitleTextColor(textColour);
             return this;
         }
 
         public Builder setShape(Shape shape) {
-            showcaseView.setShape(shape);
+            userGuideView.setShape(shape);
             return this;
         }
 
 
         public UserGuideView build() {
-            if (showcaseView.mShape == null) {
+            if (userGuideView.mShape == null) {
                 switch (shapeType) {
                     case RECTANGLE_SHAPE:
-                        showcaseView.setShape(new RectangleShape(showcaseView.mTarget.getBounds(), fullWidth));
+                        userGuideView.setShape(new RectangleShape(userGuideView.mTarget.getBounds(), fullWidth));
                         break;
 
                     case CIRCLE_SHAPE:
-                        showcaseView.setShape(new CircleShape(showcaseView.mTarget));
+                        userGuideView.setShape(new CircleShape(userGuideView.mTarget));
                         break;
 
                     default:
@@ -372,12 +377,12 @@ public class UserGuideView extends FrameLayout implements View.OnClickListener, 
                 }
             }
 
-            return showcaseView;
+            return userGuideView;
         }
 
         public UserGuideView show() {
             build().show(activity);
-            return showcaseView;
+            return userGuideView;
         }
 
     }
@@ -403,6 +408,9 @@ public class UserGuideView extends FrameLayout implements View.OnClickListener, 
     }
 
     public boolean show(final Activity activity) {
+        if (getParent() != null && getParent() instanceof ViewGroup) {
+            ((ViewGroup) getParent()).removeView(this);
+        }
         ((ViewGroup) activity.getWindow().getDecorView()).addView(this);
 
         setShouldRender(true);
