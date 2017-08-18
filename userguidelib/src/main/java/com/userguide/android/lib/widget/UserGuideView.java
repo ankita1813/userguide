@@ -36,7 +36,7 @@ import com.userguide.android.lib.utils.AnimationFactory;
 import com.userguide.android.lib.utils.IAnimationFactory;
 
 /**
- * Created by deepak on 7/4/17.
+ * Created by ankita on 7/4/17.
  */
 
 public class UserGuideView extends FrameLayout implements View.OnClickListener, View.OnTouchListener {

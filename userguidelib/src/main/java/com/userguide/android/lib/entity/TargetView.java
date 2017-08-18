@@ -5,7 +5,7 @@ import android.graphics.Rect;
 import android.view.View;
 
 /**
- * Created by deepak on 7/4/17.
+ * Created by ankita on 7/4/17.
  */
 
 public class TargetView implements Target {

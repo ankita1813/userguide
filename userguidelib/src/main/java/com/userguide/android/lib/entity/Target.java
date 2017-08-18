@@ -4,7 +4,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 
 /**
- * Created by deepak on 7/4/17.
+ * Created by ankita on 7/4/17.
  */
 
 public interface Target {

@@ -5,7 +5,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 /**
- * Created by deepak on 7/4/17.
+ * Created by ankita on 7/4/17.
  */
 
 public class CircleShape implements Shape {
